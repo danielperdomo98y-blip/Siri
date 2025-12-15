@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System: Siury</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff2e63;
+            --secondary: #08d9d6;
+            --bg-dark: #0f0f1a;
+            --error-red: #ff3333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* --- FONDO --- */
+        .background-gradient {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(-45deg, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            z-index: -2; opacity: 1;
+        }
+        
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- PANTALLA DE INICIO --- */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 50; transition: opacity 0.5s ease;
+            backdrop-filter: blur(15px); background: rgba(0,0,0,0.6);
+        }
+
+        .start-btn {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 15px 40px; font-size: 1.1rem;
+            cursor: pointer; transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(8, 217, 214, 0.2);
+        }
+        .start-btn:hover {
+            background: var(--secondary); color: #000;
+            box-shadow: 0 0 30px rgba(8, 217, 214, 0.6);
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .main-card {
+            width: 90%; max-width: 650px;
+            background: rgba(20, 20, 30, 0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+            position: relative; z-index: 10;
+            display: none; opacity: 0; transform: scale(0.95);
+            transition: filter 0.3s;
+            display: flex; flex-direction: column; /* Flex para mejor estructura */
+        }
+
+        .card-visible { 
+            display: flex !important; /* Importante para flex */
+            animation: showCard 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+        }
+
+        @keyframes showCard { to { opacity: 1; transform: scale(1); } }
+
+        .card-header {
+            padding: 12px 20px; background: rgba(0,0,0,0.4);
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px 12px 0 0;
+            flex-shrink: 0;
+        }
+
+        /* ÁREA DE TEXTO */
+        .card-body {
+            padding: 25px; 
+            height: 500px; /* Un poco más alto */
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem; line-height: 1.8; color: #e0e0e0;
+            scroll-behavior: smooth;
+        }
+
+        /* ANIMACIÓN DE LÍNEAS */
+        .line-appear {
+            opacity: 0; transform: translateY(10px);
+            animation: fadeInLine 0.5s ease forwards;
+        }
+        @keyframes fadeInLine { to { opacity: 1; transform: translateY(0); } }
+
+        /* Colores Syntax */
+        .k { color: #ff79c6; font-weight: bold; }
+        .s { color: #f1fa8c; }
+        .v { color: #8be9fd; font-style: italic; }
+        .c { color: #6272a4; }
+
+        /* --- MODAL DE ERROR (EL SUSTO) --- */
+        #error-modal {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 85%; max-width: 400px;
+            background: #1a0000;
+            border: 2px solid var(--error-red);
+            padding: 30px;
+            text-align: center;
+            z-index: 100;
+            display: none; opacity: 0;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+
+        .modal-active {
+            display: block !important;
+            animation: modalPop 0.2s forwards, shake 0.4s infinite;
+        }
+
+        @keyframes modalPop { to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        
+        @keyframes shake {
+            0% { transform: translate(-52%, -50%) rotate(-1deg); }
+            50% { transform: translate(-48%, -50%) rotate(1deg); }
+            100% { transform: translate(-52%, -50%) rotate(-1deg); }
+        }
+
+        .error-icon { font-size: 4rem; margin-bottom: 15px; }
+        .error-title { color: var(--error-red); font-size: 1.5rem; margin-bottom: 10px; font-weight: 900; }
+        .error-desc { font-family: 'JetBrains Mono'; font-size: 0.9rem; color: #ffcccc; margin-bottom: 20px; }
+        
+        /* Barra de progreso */
+        .progress-container { width: 100%; height: 6px; background: #330000; margin-top: 15px; border-radius: 3px;}
+        .progress-bar { height: 100%; background: var(--error-red); width: 0%; animation: fillProgress 3s linear forwards; border-radius: 3px; }
+        @keyframes fillProgress { to { width: 100%; } }
+
+        /* --- BOTÓN FINAL (Integrado) --- */
+        /* Ya no es absolute, ahora es parte del flujo */
+        .final-section {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end; /* Alineado a la derecha como antes */
+            opacity: 0;
+            animation: fadeInLine 1s forwards;
+        }
+
+        .glow-button {
+            background: linear-gradient(45deg, var(--primary), #ff6b6b);
+            color: white; border: none; padding: 12px 25px;
+            border-radius: 50px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 46, 99, 0.4);
+            display: flex; align-items: center; gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+        }
+        .glow-button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 46, 99, 0.6); }
+
+        #confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 200; }
+        .blurred { filter: blur(5px); pointer-events: none; transition: filter 0.3s; }
+
+        /* Estilo para el chiste */
+        .joke-container {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            border: 1px dashed rgba(80, 250, 123, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-gradient"></div>
+    <div class="grid-overlay"></div>
+    <canvas id="confetti"></canvas>
+
+    <!-- INTRO -->
+    <div id="intro-screen">
+        <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
+        <h2 style="font-family: 'JetBrains Mono'; margin-bottom: 25px; letter-spacing: 2px;">SIURY_ACCESS</h2>
+        <button class="start-btn" onclick="startApp()">[ DESENCRIPTAR ]</button>
+    </div>
+
+    <!-- MODAL DE ERROR -->
+    <div id="error-modal">
+        <div class="error-icon">❌</div>
+        <div class="error-title">SYSTEM ERROR</div>
+        <div class="error-desc">
+            CRITICAL FAILURE DETECTED<br>
+            DELETING USER MEMORY...
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- CARTA -->
+    <div class="main-card" id="card">
+        <div class="card-header">
+            <div style="display:flex; gap:8px;">
+                <div style="width:12px; height:12px; background:#ff5f56; border-radius:50%;"></div>
+                <div style="width:12px; height:12px; background:#ffbd2e; border-radius:50%;"></div>
+                <div style="width:12px; height:12px; background:#27c93f; border-radius:50%;"></div>
+            </div>
+            <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">dedicatoria.js</div>
+        </div>
+        
+        <!-- Contenedor del texto (y ahora también del botón al final) -->
+        <div class="card-body" id="text-container"></div>
+    </div>
+
+    <script>
+        const lines = [
+            "<span class='c'>// Conectando con Siury...</span>",
+            "<span class='c'>// Status: Esperando encuentro presencial ⏳</span>",
+            "",
+            "<span class='k'>const</span> <span class='v'>mensaje</span> = <span class='k'>async</span> () => {",
+            "",
+            "  <span class='s'>'Hola Siri (Carajita er diablo 😈),'</span>",
+            "",
+            "  Se que sería mejor a tinta y papel,",
+            "  pero me va mejor a <span class='k'>código</span> y manito jajaja.",
+            "",
+            "  Desde que te conozco me has parecido una chama <span class='k'>increíble</span>",
+            "  y digna de admirar. Siempre echada pa lante.",
+            "",
+            "  <span class='k'>if</span> (situacion === <span class='s'>'complicada'</span>) {",
+            "     <span class='v'>Ella</span>.dice(<span class='s'>'Yo resuelvo'</span>); ✨",
+            "  }",
+            "",
+            "  <span class='c'>// Reporte de Bug:</span>",
+            "  Es muy grato haberte conocido, aunque parece que hay",
+            "  un <span class='k'>error en la matrix</span> que no nos deja vernos.",
+            "  Siempre pasa algo, pero ya toca arreglar eso, no?",
+            "",
+            "  Cada vez sales con una ocurrencia nueva o alguna vaina loca",
+            "  que solo te pasan a ti y al <span class='v'>Pato Lucas</span> 🦆 jajajaja.",
+            "",
+            "  <span class='k'>return</span> {",
+            "    conclusion: <span class='s'>'Te quiero ❤️'</span>,",
+            "    status: <span class='s'>'Orgulloso de tus logros'</span>,",
+            "    deseo: <span class='s'>'Celebrar tu éxito como mío'</span>",
+            "  };",
+            "};",
+            "",
+            "<span class='v'>mensaje</span>();"
+        ];
+
+        const container = document.getElementById('text-container');
+        const card = document.getElementById('card');
+        const modal = document.getElementById('error-modal');
+
+        function startApp() {
+            document.getElementById('intro-screen').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('intro-screen').style.display = 'none';
+                card.classList.add('card-visible');
+                setTimeout(() => showLine(0), 800);
+            }, 500);
+        }
+
+        // --- SISTEMA DE ESCRITURA ---
+        function showLine(index) {
+            if (index >= lines.length) {
+                // Fin del texto, esperamos un poco y lanzamos la broma
+                setTimeout(triggerPrank, 1500);
+                return;
+            }
+
+            const div = document.createElement('div');
+            div.innerHTML = lines[index] === "" ? "&nbsp;" : lines[index];
+            div.className = 'line-appear';
+            container.appendChild(div);
+            
+            // Auto scroll
+            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+
+            // Velocidad dinámica
+            let delay = 500; 
+            if (lines[index].length > 40) delay = 1200;
+            else if (lines[index].length > 20) delay = 800;
+            else delay = 300;
+
+            setTimeout(() => showLine(index + 1), delay);
+        }
+
+        // --- LA BROMITA ---
+        function triggerPrank() {
+            card.classList.add('blurred');
+            modal.classList.add('modal-active');
+            setTimeout(stopPrank, 3500);
+        }
+
+        function stopPrank() {
+            modal.classList.remove('modal-active');
+            modal.style.opacity = 0;
+            card.classList.remove('blurred');
+            
+            // Mensaje de alivio
+            const jokeDiv = document.createElement('div');
+            jokeDiv.className = 'line-appear joke-container';
+            jokeDiv.innerHTML = `
+                <h3 style="color:#50fa7b; margin-bottom:5px;">¿Te asustaste? 🤣</h3>
+                <p style="color:#aaa; font-size:0.9rem">Mentira vale, todo esta fino .</p>
+            `;
+            container.appendChild(jokeDiv);
+
+            // AÑADIR BOTÓN AL FINAL (DENTRO DEL FLUJO)
+            // Esto asegura que nunca tape el texto
+            const btnDiv = document.createElement('div');
+            btnDiv.className = 'final-section';
+            btnDiv.innerHTML = `
+                <button class="glow-button" onclick="celebrate()">
+                    Tú Resuelves 🚀
+                </button>
+            `;
+            container.appendChild(btnDiv);
+
+            // Scroll final para mostrar el botón
+            setTimeout(() => {
+                container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+            }, 200);
+        }
+
+        // --- CONFETI ---
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        let parts = [];
+
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = resize; resize();
+
+        function celebrate() {
+            // Explosión de confeti
+            for(let i=0; i<150; i++) {
+                parts.push({
+                    x: window.innerWidth / 2, y: window.innerHeight / 2,
+                    vx: (Math.random() - 0.5) * 20, vy: (Math.random() * -20) - 5,
+                    emoji: ['❤️','🦆','✨','🔥','🇻🇪'][Math.floor(Math.random()*5)],
+                    life: 1, gravity: 0.5
+                });
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            parts.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy; p.vy += p.gravity; p.life -= 0.01;
+                ctx.font = "24px serif"; ctx.globalAlpha = Math.max(0, p.life);
+                ctx.fillText(p.emoji, p.x, p.y);
+                if(p.life <= 0) parts.splice(i, 1);
+            });
+            if(parts.length) requestAnimationFrame(animate);
+        }
+    </script>
+</body>
+</html>
+

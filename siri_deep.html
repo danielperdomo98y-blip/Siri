@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para: Carajita er diablo ❤️</title>
+    <!-- Fuentes modernas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ff2e63; /* Rosa Neón */
+            --secondary: #08d9d6; /* Cyan Neón */
+            --tertiary: #ffb347; /* Naranja */
+            --bg-dark: #1a1a2e;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glitch-color1: #ff00ff;
+            --glitch-color2: #00ffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow: hidden; /* Evitar scroll durante animaciones */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* --- FONDO ANIMADO MEJORADO --- */
+        .background-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -3;
+            opacity: 0.8;
+        }
+
+        .overlay-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, transparent 49%, rgba(255,255,255,0.05) 50%, transparent 51%),
+                linear-gradient(transparent 49%, rgba(255,255,255,0.05) 50%, transparent 51%);
+            background-size: 30px 30px, 60px 60px, 60px 60px;
+            z-index: -2;
+        }
+
+        /* Efecto de circuitos animados */
+        .circuit-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- PANTALLA DE INICIO MEJORADA --- */
+        #intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .intro-content {
+            text-align: center;
+            position: relative;
+        }
+
+        .intro-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 10px rgba(255, 46, 99, 0.7)); }
+            to { filter: drop-shadow(0 0 20px rgba(8, 217, 214, 0.7)); }
+        }
+
+        .intro-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-subtitle::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: scanLine 3s infinite;
+        }
+
+        @keyframes scanLine {
+            to { left: 100%; }
+        }
+
+        .start-btn {
+            background: linear-gradient(90deg, var(--primary), var(--tertiary));
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 46, 99, 0.5);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+        }
+
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .start-btn:hover::before {
+            left: 100%;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255, 46, 99, 0.8);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 46, 99, 0.7); }
+            70% { box-shadow: 0 0 0 25px rgba(255, 46, 99, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 46, 99, 0); }
+        }
+
+        /* --- VENTANA PRINCIPAL MEJORADA --- */
+        .main-card {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(15, 15, 25, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            
+            /* Estado inicial oculto para animación */
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            display: none; /* Se activa con JS */
+        }
+
+        /* Efecto de brillo en los bordes */
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+
+        .main-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        /* Animación de entrada de la ventana */
+        .card-visible {
+            display: block;
+            animation: showCard 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes showCard {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Efecto de glitch aleatorio */
+        .glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1;
+            background: rgba(0,0,0,0.7);
+            mix-blend-mode: screen;
+        }
+
+        .glitch.active {
+            animation: glitchEffect 0.3s;
+        }
+
+        @keyframes glitchEffect {
+            0% { opacity: 1; transform: translate(0); }
+            10% { opacity: 0.8; transform: translate(-2px, 2px); }
+            20% { opacity: 0.9; transform: translate(2px, -1px); }
+            30% { opacity: 1; transform: translate(-1px, -2px); }
+            40% { opacity: 0.7; transform: translate(1px, 1px); }
+            50% { opacity: 1; transform: translate(0); }
+            100% { opacity: 0; transform: translate(0); }
+        }
+
+        /* Header de la ventana mejorado */
+        .card-header {
+            padding: 15px 25px;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .window-controls { 
+            display: flex; 
+            gap: 10px; 
+        }
+        
+        .control { 
+            width: 14px; 
+            height: 14px; 
+            border-radius: 50%; 
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .control:hover {
+            transform: scale(1.2);
+        }
+        
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27c93f; }
+
+        .file-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+        }
+
+        .file-title::before {
+            content: '▶';
+            color: var(--secondary);
+            font-size: 0.8rem;
+            animation: blinkTitle 1.5s infinite;
+        }
+
+        @keyframes blinkTitle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Cuerpo del código mejorado */
+        .card-body {
+            padding: 25px;
+            height: 450px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+            position: relative;
+        }
+
+        /* Scrollbar personalizada */
+        .card-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .card-body::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        
+        .card-body::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 600px) {
+            .card-body { font-size: 0.85rem; height: 400px; }
+            .intro-title { font-size: 2.5rem; }
+        }
+
+        /* Colores de Sintaxis mejorados */
+        .hl-purple { color: #d19a66; font-weight: bold; }
+        .hl-blue { color: #61afef; }
+        .hl-green { color: #98c379; }
+        .hl-red { color: #ff6b6b; }
+        .hl-comment { color: #7f848e; font-style: italic; }
+        .hl-yellow { color: #ffcc00; }
+        .hl-cyan { color: var(--secondary); }
+
+        /* Cursor con efecto de brillo */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: var(--primary);
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        @keyframes blink { 
+            50% { 
+                opacity: 0; 
+                box-shadow: 0 0 5px var(--primary);
+            } 
+        }
+
+        /* Error tipográfico */
+        .typo {
+            color: var(--tertiary);
+            position: relative;
+        }
+
+        .typo::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--tertiary);
+            animation: underlineTypo 0.5s 3;
+        }
+
+        @keyframes underlineTypo {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Botón Final mejorado */
+        .action-area {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: flex-end;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .glow-button {
+            background: linear-gradient(90deg, var(--primary), #ff6b6b);
+            border: none;
+            padding: 15px 30px;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--primary);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+        }
+
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary));
+            border-radius: 52px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .glow-button:hover::before {
+            opacity: 1;
+            animation: borderGlow 2s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .glow-button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 40px var(--primary);
+            letter-spacing: 2px;
+        }
+
+        /* Canvas Confeti mejorado */
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 100;
+        }
+
+        .floating-icons {
+            position: absolute; 
+            top: -40px; 
+            right: 30px;
+            font-size: 3rem; 
+            animation: floatIcon 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.7));
+        }
+        
+        .floating-icons i {
+            margin: 0 5px;
+        }
+        
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            75% { transform: translateY(5px) rotate(-5deg); }
+        }
+
+        /* Terminal interactiva oculta */
+        #terminal {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 300px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            padding: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            display: none;
+            z-index: 20;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .terminal-line {
+            margin-bottom: 5px;
+            color: #98c379;
+        }
+
+        .terminal-input {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .terminal-prompt {
+            color: var(--secondary);
+            margin-right: 5px;
+        }
+
+        #terminal-cmd {
+            background: transparent;
+            border: none;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            width: 100%;
+            outline: none;
+            caret-color: var(--primary);
+        }
+
+        /* Notificación de sonido */
+        .sound-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 30;
+            border: 1px solid var(--glass-border);
+        }
+
+        .sound-notification.show {
+            opacity: 1;
+        }
+
+        /* Indicador de errores tipográficos */
+        .typo-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 30;
+            border: 1px solid var(--tertiary);
+            box-shadow: 0 0 10px rgba(255, 179, 71, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-gradient"></div>
+    <div class="overlay-pattern"></div>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Efecto de glitch -->
+    <div class="glitch" id="glitch-effect"></div>
+
+    <!-- Notificación de sonido -->
+    <div class="sound-notification" id="sound-notification">
+        <i class="fas fa-volume-up"></i>
+        <span>Sonidos activados</span>
+    </div>
+
+    <!-- Indicador de errores tipográficos -->
+    <div class="typo-indicator" id="typo-indicator">
+        <i class="fas fa-keyboard"></i>
+        <span>Error tipográfico detectado</span>
+    </div>
+
+    <!-- Terminal interactiva -->
+    <div id="terminal">
+        <div class="terminal-line">Terminal interactiva iniciada</div>
+        <div class="terminal-line">Escribe "help" para comandos</div>
+        <div id="terminal-output"></div>
+        <div class="terminal-input">
+            <span class="terminal-prompt">></span>
+            <input type="text" id="terminal-cmd" placeholder="Escribe un comando...">
+        </div>
+    </div>
+
+    <!-- PANTALLA DE INICIO -->
+    <div id="intro-screen">
+        <div class="intro-content">
+            <div class="floating-icons">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-code"></i>
+                <i class="fas fa-keyboard"></i>
+            </div>
+            <h1 class="intro-title">Hola Carajita...</h1>
+            <div class="intro-subtitle">./protocolo_cariño.sh --force --typos=true</div>
+            <br>
+            <button class="start-btn" onclick="startExperience()">
+                <i class="fas fa-play-circle"></i> EJECUTAR CÓDIGO
+            </button>
+            <div style="margin-top: 30px; color: rgba(255,255,255,0.6); font-size: 0.8rem;">
+                <i class="fas fa-info-circle"></i> Presiona "T" para abrir terminal
+            </div>
+        </div>
+    </div>
+
+    <!-- VENTANA PRINCIPAL (DEDICATORIA) -->
+    <div class="main-card" id="main-card">
+        <div class="floating-icons">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-laptop-code"></i>
+        </div>
+        <div class="card-header">
+            <div class="window-controls">
+                <div class="control close" onclick="closeWindow()"></div>
+                <div class="control minimize" onclick="minimizeWindow()"></div>
+                <div class="control maximize" onclick="maximizeWindow()"></div>
+            </div>
+            <div class="file-title">
+                main_dedication.js
+            </div>
+            <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">
+                <i class="fas fa-keyboard"></i> Modo: <span id="typo-counter">0 errores</span>
+            </div>
+        </div>
+        
+        <div class="card-body" id="code-container">
+            <!-- Texto inyectado por JS -->
+        </div>
+
+        <div class="action-area" id="action-area">
+            <button class="glow-button" onclick="celebrate()">
+                <i class="fas fa-rocket"></i>
+                <span>Tú Resuelves</span>
+                <i class="fas fa-magic"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Audio para efectos de sonido -->
+    <audio id="typeSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-fast-typing-138.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="errorSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-retro-game-emergency-alarm-1000.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="successSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // --- VARIABLES GLOBALES ---
+        let typoCount = 0;
+        let isMakingTypo = false;
+        let typoSteps = 0;
+        let currentTypo = '';
+        let typoStartIndex = 0;
+        let terminalOpen = false;
+
+        // --- LÓGICA DE INICIO MEJORADA ---
+        function startExperience() {
+            const intro = document.getElementById('intro-screen');
+            const card = document.getElementById('main-card');
+            
+            // Mostrar notificación de sonido
+            const soundNotification = document.getElementById('sound-notification');
+            soundNotification.classList.add('show');
+            setTimeout(() => soundNotification.classList.remove('show'), 3000);
+
+            // Efecto de sonido
+            playSound('successSound');
+
+            // 1. Desvanecer intro con efecto
+            intro.style.opacity = '0';
+            intro.style.transform = 'scale(1.1) rotate(2deg)';
+
+            setTimeout(() => {
+                intro.style.display = 'none';
+                
+                // 2. Mostrar tarjeta principal con efecto de glitch
+                triggerGlitch();
+                
+                setTimeout(() => {
+                    card.classList.add('card-visible');
+                    
+                    // 3. Iniciar escritura después de la animación
+                    setTimeout(() => {
+                        typeWriter();
+                        // Mostrar indicador de errores
+                        document.getElementById('typo-indicator').style.display = 'flex';
+                    }, 500);
+                }, 300);
+            }, 800);
+        }
+
+        // --- LÓGICA DE ESCRITURA CON ERRORES ALEATORIOS ---
+        const rawText = [
+            "<c>// Conexión establecida... ✨</c>",
+            "<k>const</k> <v>paraTi</v> = <k>async</k> () => {",
+            "  ",
+            "  <s>'Hola carajita er diablo 😈,'</s>",
+            "  ",
+            "  <c>// Intenté escribirlo a mano pero...</c>",
+            "  Se que sería mejor a tinta y papel ✍️,",
+            "  pero mira, me va mejor a <k>código</k> y manito jajaja.",
+            "  ",
+            "  Desde que te conozco me has parecido una chama <k>increíble</k>",
+            "  y digna de admirar. Siempre echada pa lante,",
+            "  que nada le queda grande.",
+            "  ",
+            "  <k>while</k> (vida === <s>'complicada'</s>) {",
+            "    <v>Ella</v>.dice(<s>'Tú resuelves'</s>); <hl>✨</hl>",
+            "  }",
+            "  ",
+            "  Es muy grato para mí haberte conocido (Ya hay que vernos, no?).",
+            "  Cada vez sales con una ocurrencia nueva o alguna vaina loca",
+            "  que solo te pasan a ti y al <v>Pato Lucas</v> 🦆 jajajaja.",
+            "  ",
+            "  <k>return</k> {",
+            "    sentimiento: <s>'Te quiero ❤️'</s>,",
+            "    estado: <s>'Orgulloso de cada logro tuyo'</s>,",
+            "    nota: <s>'Me encanta tu forma de ser'</s>",
+            "  };",
+            "};",
+            "  ",
+            "<c>// Ejecutando cariño.exe...</c>",
+            "<v>paraTi</v>();"
+        ];
+
+        // Palabras que pueden tener errores
+        const typoWords = ['diablo', 'código', 'increíble', 'resuelves', 'conocido', 'ocurrencia', 'vaina', 'loca', 'lucas', 'quiero', 'orgulloso', 'logro', 'felicidad', 'éxito', 'celebrado', 'personalidad'];
+        
+        // Errores comunes
+        const commonTypos = {
+            'd': 'f', 'f': 'd',
+            'c': 'v', 'v': 'c',
+            'i': 'o', 'o': 'i',
+            'e': 'r', 'r': 'e',
+            's': 'a', 'a': 's',
+            'l': 'k', 'k': 'l',
+            'g': 'h', 'h': 'g',
+            'n': 'm', 'm': 'n',
+            'b': 'n', 'n': 'b'
+        };
+
+        const container = document.getElementById('code-container');
+        const actionArea = document.getElementById('action-area');
+        let lineIndex = 0;
+        let charIndex = 0;
+        let currentLineContent = '';
+
+        function typeWriter() {
+            // Sonido de tecleo (ocasional)
+            if (Math.random() > 0.7) playSound('typeSound', 0.3);
+
+            if (lineIndex < rawText.length) {
+                const line = rawText[lineIndex];
+                
+                // Inicializar nueva línea
+                if (charIndex === 0) {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = 'code-line';
+                    container.appendChild(lineDiv);
+                    currentLineContent = '';
+                }
+
+                const currentLineDiv = container.lastElementChild;
+                let char = line[charIndex];
+
+                // Manejo de etiquetas HTML
+                if (char === '<') {
+                    const closingIndex = line.indexOf('>', charIndex);
+                    const tag = line.substring(charIndex, closingIndex + 1);
+                    let spanClass = "";
+                    if(tag.includes('<k>')) spanClass = "hl-purple";
+                    else if(tag.includes('<s>')) spanClass = "hl-green";
+                    else if(tag.includes('<v>')) spanClass = "hl-blue";
+                    else if(tag.includes('<c>')) spanClass = "hl-comment";
+                    else if(tag.includes('<hl>')) spanClass = "hl-yellow";
+                    
+                    if (!tag.includes('</')) {
+                        const span = document.createElement('span');
+                        span.className = spanClass;
+                        currentLineDiv.appendChild(span);
+                    }
+                    charIndex = closingIndex + 1;
+                } else {
+                    // Verificar si debemos hacer un error tipográfico
+                    if (!isMakingTypo && Math.random() < 0.15 && char.match(/[a-zA-ZáéíóúÁÉÍÓÚñÑ]/)) {
+                        // Encontrar la palabra completa
+                        let wordStart = charIndex;
+                        while (wordStart > 0 && line[wordStart-1].match(/[a-zA-ZáéíóúÁÉÍÓÚñÑ]/)) wordStart--;
+                        
+                        let wordEnd = charIndex;
+                        while (wordEnd < line.length && line[wordEnd].match(/[a-zA-ZáéíóúÁÉÍÓÚñÑ]/)) wordEnd++;
+                        
+                        const word = line.substring(wordStart, wordEnd);
+                        
+                        // Verificar si la palabra está en la lista de palabras con posibles errores
+                        if (typoWords.some(w => word.toLowerCase().includes(w.toLowerCase()))) {
+                            isMakingTypo = true;
+                            typoSteps = 0;
+                            typoStartIndex = wordStart;
+                            
+                            // Crear versión con error
+                            let typoWord = '';
+                            for (let i = 0; i < word.length; i++) {
+                                if (Math.random() < 0.3 && commonTypos[word[i].toLowerCase()]) {
+                                    typoWord += commonTypos[word[i].toLowerCase()];
+                                } else {
+                                    typoWord += word[i];
+                                }
+                            }
+                            currentTypo = typoWord;
+                            
+                            // Mostrar indicador
+                            document.getElementById('typo-indicator').innerHTML = 
+                                `<i class="fas fa-keyboard"></i><span>Error tipográfico: "${word}" → "${typoWord}"</span>`;
+                            document.getElementById('typo-indicator').style.borderColor = 'var(--tertiary)';
+                            
+                            // Efecto de sonido de error
+                            playSound('errorSound', 0.2);
+                            
+                            // Efecto de glitch
+                            triggerGlitch();
+                        }
+                    }
+
+                    // Si estamos haciendo un error tipográfico
+                    if (isMakingTypo && charIndex >= typoStartIndex && charIndex < typoStartIndex + currentTypo.length) {
+                        const typoChar = currentTypo[charIndex - typoStartIndex];
+                        const lastSpan = currentLineDiv.lastElementChild;
+                        
+                        if (lastSpan && lastSpan.tagName === 'SPAN') {
+                            lastSpan.innerHTML += typoChar;
+                        } else {
+                            const textNode = document.createTextNode(typoChar);
+                            currentLineDiv.appendChild(textNode);
+                        }
+                        
+                        currentLineContent += typoChar;
+                        charIndex++;
+                        
+                        // Si terminamos la palabra con error, proceder a corregir
+                        if (charIndex >= typoStartIndex + currentTypo.length) {
+                            isMakingTypo = false;
+                            typoSteps = 1;
+                            setTimeout(correctTypo, 400); // Pausa breve antes de corregir
+                        }
+                    } else {
+                        // Escritura normal
+                        const lastSpan = currentLineDiv.lastElementChild;
+                        if (lastSpan && lastSpan.tagName === 'SPAN') {
+                            lastSpan.innerHTML += char;
+                        } else {
+                            const textNode = document.createTextNode(char);
+                            currentLineDiv.appendChild(textNode);
+                        }
+                        
+                        currentLineContent += char;
+                        charIndex++;
+                    }
+                }
+
+                // Auto Scroll
+                container.scrollTop = container.scrollHeight;
+
+                if (charIndex >= line.length) {
+                    lineIndex++;
+                    charIndex = 0;
+                    setTimeout(typeWriter, Math.random() * 100 + 50); // Pausa aleatoria entre líneas
+                } else {
+                    setTimeout(typeWriter, Math.random() * 30 + 20); // Velocidad de escritura variable
+                }
+            } else {
+                finishTyping();
+            }
+        }
+
+        // Función para corregir un error tipográfico
+        function correctTypo() {
+            if (typoSteps === 1) {
+                // Borrar la palabra con error
+                const lines = container.querySelectorAll('.code-line');
+                const currentLine = lines[lines.length - 1];
+                let lineContent = currentLine.textContent || currentLine.innerText;
+                
+                // Reemplazar la palabra con error por la correcta
+                const correctWord = rawText[lineIndex].substring(typoStartIndex, typoStartIndex + currentTypo.length);
+                const correctedContent = lineContent.substring(0, typoStartIndex - currentLineContent.length + lineContent.length) + 
+                                        correctWord + 
+                                        lineContent.substring(typoStartIndex - currentLineContent.length + lineContent.length + currentTypo.length);
+                
+                currentLine.innerHTML = '';
+                
+                // Reconstruir la línea con el formato adecuado
+                let inTag = false;
+                let currentTag = '';
+                let currentSpan = null;
+                
+                for (let i = 0; i < correctedContent.length; i++) {
+                    const char = correctedContent[i];
+                    
+                    if (char === '<') {
+                        inTag = true;
+                        currentTag = '';
+                    } else if (char === '>') {
+                        inTag = false;
+                        
+                        if (currentTag.includes('<k>') || currentTag.includes('<s>') || 
+                            currentTag.includes('<v>') || currentTag.includes('<c>') || currentTag.includes('<hl>')) {
+                            currentSpan = document.createElement('span');
+                            
+                            if(currentTag.includes('<k>')) currentSpan.className = 'hl-purple';
+                            else if(currentTag.includes('<s>')) currentSpan.className = 'hl-green';
+                            else if(currentTag.includes('<v>')) currentSpan.className = 'hl-blue';
+                            else if(currentTag.includes('<c>')) currentSpan.className = 'hl-comment';
+                            else if(currentTag.includes('<hl>')) currentSpan.className = 'hl-yellow';
+                            
+                            currentLine.appendChild(currentSpan);
+                        }
+                    } else if (inTag) {
+                        currentTag += char;
+                    } else {
+                        if (currentSpan) {
+                            currentSpan.innerHTML += char;
+                        } else {
+                            currentLine.appendChild(document.createTextNode(char));
+                        }
+                    }
+                }
+                
+                typoCount++;
+                document.getElementById('typo-counter').textContent = `${typoCount} error(es)`;
+                document.getElementById('typo-indicator').innerHTML = 
+                    `<i class="fas fa-check-circle"></i><span>Corregido! (${typoCount} errores total)</span>`;
+                document.getElementById('typo-indicator').style.borderColor = 'var(--secondary)';
+                
+                // Efecto de sonido de corrección
+                playSound('successSound', 0.3);
+                
+                typoSteps = 0;
+                
+                // Continuar escribiendo
+                setTimeout(() => {
+                    charIndex = typoStartIndex + correctWord.length;
+                    typeWriter();
+                }, 300);
+            }
+        }
+
+        function finishTyping() {
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            container.appendChild(cursor);
+            actionArea.style.opacity = "1";
+            actionArea.style.pointerEvents = "auto";
+            
+            // Efecto de sonido final
+            playSound('successSound', 0.5);
+            
+            // Actualizar indicador
+            document.getElementById('typo-indicator').innerHTML = 
+                `<i class="fas fa-flag-checkered"></i><span>Completado con ${typoCount} errores tipográficos</span>`;
+            document.getElementById('typo-indicator').style.borderColor = 'var(--primary)';
+        }
+
+        // --- EFECTOS DE SONIDO ---
+        function playSound(soundId, volume = 0.5) {
+            try {
+                const sound = document.getElementById(soundId);
+                sound.volume = volume;
+                sound.currentTime = 0;
+                sound.play();
+            } catch (e) {
+                // Silenciar errores de sonido
+            }
+        }
+
+        // --- EFECTO DE GLITCH ---
+        function triggerGlitch() {
+            const glitch = document.getElementById('glitch-effect');
+            glitch.classList.add('active');
+            setTimeout(() => glitch.classList.remove('active'), 300);
+            
+            // Efecto de sonido de glitch
+            playSound('errorSound', 0.1);
+        }
+
+        // --- LÓGICA DE CONFETI MEJORADA ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                const rect = document.querySelector('.glow-button').getBoundingClientRect();
+                this.x = rect.left + rect.width / 2;
+                this.y = rect.top + rect.height / 2;
+                this.vx = (Math.random() - 0.5) * 30;
+                this.vy = (Math.random() * -25) - 5;
+                this.gravity = 0.7;
+                this.opacity = 1;
+                this.size = Math.random() * 30 + 15;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 10;
+                const emojis = ['❤️', '✨', '🔥', '🦆', '💻', '🚀', '🇻🇪', '👾', '💕', '🎉', '🌟', '💌'];
+                this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += this.gravity;
+                this.opacity -= 0.005;
+                this.rotation += this.rotationSpeed;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.font = `${this.size}px serif`;
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 15;
+                ctx.fillText(this.emoji, -this.size/2, this.size/2);
+                ctx.restore();
+            }
+        }
+
+        function celebrate() {
+            playSound('successSound', 0.7);
+            
+            // Efecto de glitch
+            triggerGlitch();
+            
+            // Crear muchas partículas
+            for(let i = 0; i < 150; i++) {
+                particles.push(new Particle());
+            }
+            
+            // Cambiar texto del botón
+            const button = document.querySelector('.glow-button');
+            button.innerHTML = `<i class="fas fa-fire"></i><span>¡TÚ RESUELVES!</span><i class="fas fa-fire"></i>`;
+            button.style.background = 'linear-gradient(90deg, #ff0080, #ff8c00)';
+            
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].opacity <= 0 || particles[i].y > canvas.height + 100) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            if (particles.length > 0) {
+                requestAnimationFrame(animateConfetti);
+            } else {
+                // Restaurar botón después de 3 segundos
+                setTimeout(() => {
+                    const button = document.querySelector('.glow-button');
+                    button.innerHTML = `<i class="fas fa-rocket"></i><span>Tú Resuelves</span><i class="fas fa-magic"></i>`;
+                    button.style.background = 'linear-gradient(90deg, var(--primary), #ff6b6b)';
+                }, 3000);
+            }
+        }
+
+        // --- CONTROL DE VENTANA ---
+        function closeWindow() {
+            playSound('errorSound', 0.3);
+            document.getElementById('main-card').style.opacity = '0';
+            document.getElementById('main-card').style.transform = 'scale(0.9) translateY(50px)';
+            setTimeout(() => {
+                document.getElementById('intro-screen').style.display = 'flex';
+                document.getElementById('intro-screen').style.opacity = '1';
+                document.getElementById('intro-screen').style.transform = 'scale(1)';
+            }, 500);
+        }
+
+        function minimizeWindow() {
+            playSound('typeSound', 0.2);
+            document.getElementById('main-card').style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                document.getElementById('main-card').style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        function maximizeWindow() {
+            playSound('typeSound', 0.2);
+            const card = document.getElementById('main-card');
+            if (card.style.width === '95%') {
+                card.style.width = '90%';
+                card.style.maxWidth = '800px';
+            } else {
+                card.style.width = '95%';
+                card.style.maxWidth = '95%';
+            }
+        }
+
+        // --- TERMINAL INTERACTIVA ---
+        document.addEventListener('keydown', (e) => {
+            // Abrir terminal con la tecla 'T'
+            if (e.key.toLowerCase() === 't' && e.ctrlKey) {
+                e.preventDefault();
+                toggleTerminal();
+            }
+            
+            // Comandos en la terminal
+            if (terminalOpen && e.key === 'Enter') {
+                processCommand();
+            }
+        });
+
+        function toggleTerminal() {
+            const terminal = document.getElementById('terminal');
+            terminalOpen = !terminalOpen;
+            terminal.style.display = terminalOpen ? 'block' : 'none';
+            
+            if (terminalOpen) {
+                playSound('typeSound', 0.3);
+                document.getElementById('terminal-cmd').focus();
+            }
+        }
+
+        function processCommand() {
+            const input = document.getElementById('terminal-cmd');
+            const cmd = input.value.toLowerCase().trim();
+            const output = document.getElementById('terminal-output');
+            
+            // Agregar comando a la salida
+            const commandLine = document.createElement('div');
+            commandLine.className = 'terminal-line';
+            commandLine.innerHTML = `<span style="color: var(--secondary)">></span> ${cmd}`;
+            output.appendChild(commandLine);
+            
+            // Procesar comandos
+            let response = '';
+            switch(cmd) {
+                case 'help':
+                    response = 'Comandos: clear, about, typo, glitch, confetti, secret';
+                    break;
+                case 'clear':
+                    output.innerHTML = '';
+                    input.value = '';
+                    return;
+                case 'about':
+                    response = 'Dedicado a Carajita er diablo - Creado con ❤️ y código';
+                    break;
+                case 'typo':
+                    response = `Errores tipográficos encontrados: ${typoCount}`;
+                    break;
+                case 'glitch':
+                    triggerGlitch();
+                    response = 'Efecto glitch activado!';
+                    break;
+                case 'confetti':
+                    celebrate();
+                    response = 'Celebración activada! 🎉';
+                    break;
+                case 'secret':
+                    response = 'Secreto revelado: Eres increíble ✨';
+                    triggerGlitch();
+                    break;
+                case '':
+                    // No hacer nada para comandos vacíos
+                    break;
+                default:
+                    response = `Comando no reconocido: "${cmd}"`;
+            }
+            
+            if (response) {
+                const responseLine = document.createElement('div');
+                responseLine.className = 'terminal-line';
+                responseLine.textContent = response;
+                output.appendChild(responseLine);
+            }
+            
+            input.value = '';
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // Inicialización
+        document.getElementById('terminal-cmd').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                processCommand();
+            }
+        });
+
+        // Circuitos animados en el fondo
+        function drawCircuitLines() {
+            const canvas = document.createElement('canvas');
+            canvas.className = 'circuit-lines';
+            document.body.appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const points = [];
+            const numPoints = 30;
+            
+            // Crear puntos aleatorios
+            for (let i = 0; i < numPoints; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Actualizar y dibujar puntos
+                points.forEach(point => {
+                    point.x += point.vx;
+                    point.y += point.vy;
+                    
+                    // Rebotar en los bordes
+                    if (point.x < 0 || point.x > canvas.width) point.vx *= -1;
+                    if (point.y < 0 || point.y > canvas.height) point.vy *= -1;
+                    
+                    // Dibujar punto
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 1, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(8, 217, 214, 0.5)';
+                    ctx.fill();
+                });
+                
+                // Conectar puntos cercanos
+                for (let i = 0; i < points.length; i++) {
+                    for (let j = i + 1; j < points.length; j++) {
+                        const dx = points[i].x - points[j].x;
+                        const dy = points[i].y - points[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(points[i].x, points[i].y);
+                            ctx.lineTo(points[j].x, points[j].y);
+                            ctx.strokeStyle = `rgba(8, 217, 214, ${0.3 - distance/500})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // Redibujar al cambiar tamaño
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+        
+        // Iniciar circuitos animados
+        drawCircuitLines();
+    </script>
+</body>
+</html>
